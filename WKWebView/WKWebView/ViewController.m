@@ -84,7 +84,6 @@ static void *DNWebViewContext = &DNWebViewContext;
     }else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
-    
 }
 
 - (void)dealloc {

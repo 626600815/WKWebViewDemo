@@ -28,6 +28,7 @@ static void *DNWebViewContext = &DNWebViewContext;
         _webView = [[WKWebView alloc]initWithFrame:self.view.bounds configuration:self.configuration];
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:0 context:NULL];//监听进度条变化
+        [_webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
         _webView.navigationDelegate = self;
         _webView.UIDelegate = self;
         _webView.multipleTouchEnabled = YES;
@@ -38,6 +39,7 @@ static void *DNWebViewContext = &DNWebViewContext;
     return _webView;
 }
 
+//偏好设置
 - (WKWebViewConfiguration *)configuration {
     if (!_configuration) {
         _configuration = [[WKWebViewConfiguration alloc]init];
@@ -77,9 +79,12 @@ static void *DNWebViewContext = &DNWebViewContext;
                 [self.progressView setProgress:0.0f animated:NO];
             }];
         }
+    }else if ([keyPath isEqualToString:@"title"]) {
+        self.title = self.webView.title;
     }else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
+    
 }
 
 - (void)dealloc {
@@ -87,6 +92,7 @@ static void *DNWebViewContext = &DNWebViewContext;
     [self.webView setUIDelegate:nil];
     if ([self isViewLoaded]) {
         [self.webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
+        [self.webView removeObserver:self forKeyPath:@"title"];
     }
 }
 
@@ -95,16 +101,16 @@ static void *DNWebViewContext = &DNWebViewContext;
     NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
     
-//    UIBarButtonItem *closeBtn = [[UIBarButtonItem alloc] initWithTitle:@"跳两级" style:UIBarButtonItemStylePlain target:self action:@selector(closeAction)];
-//    self.navigationItem.leftBarButtonItem = closeBtn;
+    UIBarButtonItem *closeBtn = [[UIBarButtonItem alloc] initWithTitle:@"后退" style:UIBarButtonItemStylePlain target:self action:@selector(closeAction)];
+    self.navigationItem.leftBarButtonItem = closeBtn;
 }
 
-//三级跳
+//可以前进或后退任意一级
 - (void)closeAction {
     NSLog(@"我其实是返回");
     WKBackForwardList *backForwardList = self.webView.backForwardList;
-    if (backForwardList.backList.count > 1) {
-        WKBackForwardListItem *item = [backForwardList itemAtIndex:-2];
+    if (backForwardList.backList.count > 0) {
+        WKBackForwardListItem *item = [backForwardList itemAtIndex:-1];
         NSLog(@"%@-----%@",item.title,item.URL);
         [self.webView goToBackForwardListItem:item];
     }else {
@@ -193,7 +199,6 @@ static void *DNWebViewContext = &DNWebViewContext;
 //加载完成
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
     NSLog(@"加载完成");
-    self.title = webView.title;
 }
 //接收内容时发生错误
 - (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
@@ -221,15 +226,40 @@ static void *DNWebViewContext = &DNWebViewContext;
 }
 //弹出警告框时
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
-    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"警告框" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler();
+    }];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 //弹出确认框
 - (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL result))completionHandler {
     
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认框" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler(YES);
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler(NO);
+    }];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 //弹出输入框
 - (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * __nullable result))completionHandler {
     
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:prompt message:defaultText preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.textColor = [UIColor blackColor];
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"完成" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler(alert.textFields[0].text);
+    }];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - WKScriptMessageHandler

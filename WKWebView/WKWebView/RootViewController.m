@@ -17,10 +17,17 @@
     
     
 }
+
 - (IBAction)safafi:(UIButton *)sender {
-    NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
-    SFSafariViewController *safari = [[SFSafariViewController alloc]initWithURL:url];
-    [self.navigationController presentViewController:safari animated:YES completion:nil];
+    
+    if ([SFSafariViewController class]) {
+        NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
+        SFSafariViewController *safari = [[SFSafariViewController alloc]initWithURL:url];
+        [self.navigationController presentViewController:safari animated:YES completion:nil];
+    }else {
+        NSLog(@"该升级系统啦,骚年!");
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,5 +35,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 屏幕旋转
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
 
 @end

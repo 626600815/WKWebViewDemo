@@ -271,4 +271,18 @@ static void *DNWebViewContext = &DNWebViewContext;
     [super didReceiveMemoryWarning];
 }
 
+
+#pragma mark - 屏幕旋转
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskLandscape;
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
 @end

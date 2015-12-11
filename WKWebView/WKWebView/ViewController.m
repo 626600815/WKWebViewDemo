@@ -100,6 +100,21 @@ static void *DNWebViewContext = &DNWebViewContext;
     NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
     
+    //没卵用
+//    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"error" ofType:@"html" inDirectory:@"www"]];
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+    
+//    //还是没卵用
+//    NSString *path = [[NSBundle mainBundle] bundlePath];
+//    NSURL *baseURL = [NSURL fileURLWithPath:path];
+//    NSString * htmlPath = [[NSBundle mainBundle] pathForResource:@"error" ofType:@"html" inDirectory:@"www"];
+//    NSString * htmlCont = [NSString stringWithContentsOfFile:htmlPath
+//                                                    encoding:NSUTF8StringEncoding
+//                                                       error:nil];
+//    [self.webView loadHTMLString:htmlCont baseURL:baseURL];
+    
+   
+    
     UIBarButtonItem *closeBtn = [[UIBarButtonItem alloc] initWithTitle:@"后退" style:UIBarButtonItemStylePlain target:self action:@selector(closeAction)];
     self.navigationItem.leftBarButtonItem = closeBtn;
 }

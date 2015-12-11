@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="block"/>
+<meta name="apple-mobile-web-app-capable" content="no"/>
+<!--<item android:state_focused="false" 
+    android:state_pressed="true"     
+    android:drawable="@drawable/new02.png" />-->  
+<title>连接错误</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/shuaxin.css">
+<script src="js/jquery-1.7.1.min.js"></script>
+<script>
+	/*$(function(){
+		$(".new01").attr('ontouchstart','hover(this)')
+		$(".new01").attr('ontouchend','mouseout(this)')
+		$(".new01").hover(function(){
+			$(".new01").hide();	
+		});
+		
+	})*/
+
+	$('#refresh').live('touchstart', function(){  
+		$('#refresh').attr('src','images/new.png');
+	})  
+	$('#refresh').live('touchend', function(){  
+		$('#refresh').attr('src','images/new02.png');
+	
+	})
+    $('#refresh').live('click', function(){
+                       //$('#refresh').attr('src','images/new02.png');
+                       //在此处添加刷新事件
+                       window.location.href="ios://reloadLocal";
+                       })
+    
+
+</script>
+</head>
+<body>
+<div class="false">
+    <div class="error">
+        <p class="sorry">Sorry</p>
+        <p class="failure">数据获取失败</p>
+        <p class="again">请尝试重新加载</p>
+        <div class="refresh" style="position:relative; margin:0 auto;">
+        	<img src="images/new00.png" alt="" width="100%">
+            <img src="images/new02.png" id="refresh" alt="" width="100%">
+            <!-- <img class="new01" src="images/new.png" alt="" width="100%"> -->
+        </div>
+    </div>
+</div>
+</body>
+</html>

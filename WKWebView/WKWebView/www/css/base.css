@@ -1,0 +1,29 @@
+@charset "utf-8";
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, q, em, ul, li, ol, dl, dt, dd, form, article, aside, embed, table, td, th, input, button, legend, fieldlset, blockquote, textarea, label, strong, img, cite { margin: 0; padding: 0; outline: none; }
+body { font-family: Arial,'Times New Roman','Microsoft YaHei',SimHei; font-size: 12px;/* line-height: 1;*/ color: #333;  background-color: #f7f7f7; overflow-x:hidden;}
+h1, h2, h3, h4, h5, h6 { font-weight: normal; font-size: 100%; }
+table { border-collapse: collapse; }
+ul, li { list-style-type: none; }
+img{ border: none; display: block;}
+em, cite, address { font-style: normal; font-weight: normal; }
+a { text-decoration:none; color:#000; }
+/*a:hover { color:#ff8601;}*/
+a:focus { outline: none; }
+input { outline:none; border:none 0; }
+input::-ms-clear { display:none; }
+textarea { outline:none; resize:none; }	2 
+.more { float: right; margin-right: 8px; }
+.left { display:inline; float:left; }
+.right { display:inline; float:right; }
+.clearfix:after{ content:"."; display:block; clear:both; font-size:0; height:0; overflow:hidden;}
+.clear fix{ zoom:1;}
+
+/*新增弹出层APP11*/
+.zShadow{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.2);}
+.zPop03{position: fixed;top:30%;left:50%;margin-top: -55px;margin-left: -36%;width: 72%;height: 130px;background: rgba(255,255,255,0.9);border-radius: 5px;text-align: center;}
+.zPop03 p:nth-child(1){font-size:16px;font-weight:bold;color:#333;padding-top:20px;}
+.zPop03 p:nth-child(2){font-size:12px;color:#666;padding-top:10px;}
+.zPop03 .zSure:first-of-type{position: absolute;left:0;
+bottom: 0;width:100%;height:50px;line-height:50px;color:#007aff;border-radius: 0 0 5px 0;border-top: 1px solid #ccc;font-size: 18px;
+box-sizing: border-box;}
+

@@ -10,9 +10,9 @@ WKWebView方法总结
 
 ##相关配置
 
-1.添加相应的依赖库WebKit.framework
+     1.添加相应的依赖库WebKit.framework
 
-2.引入头文件#import <WebKit/WebKit.h>
+     2.引入头文件 #import<WebKit/WebKit.h>
 
 ##使用说明
 

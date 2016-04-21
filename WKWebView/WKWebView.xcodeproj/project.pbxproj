@@ -122,11 +122,6 @@
 				510903CC1C118EC7000C1F01 /* RootViewController.m */,
 				510903981C115F6A000C1F01 /* ViewController.h */,
 				510903991C115F6A000C1F01 /* ViewController.m */,
-				5109039B1C115F6A000C1F01 /* Main.storyboard */,
-				5109039E1C115F6A000C1F01 /* Assets.xcassets */,
-				510903A01C115F6A000C1F01 /* LaunchScreen.storyboard */,
-				510903A31C115F6A000C1F01 /* Info.plist */,
-				51C198FA1C1A9F3000E71B43 /* www */,
 				510903921C115F6A000C1F01 /* Supporting Files */,
 			);
 			path = WKWebView;
@@ -135,6 +130,11 @@
 		510903921C115F6A000C1F01 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5109039B1C115F6A000C1F01 /* Main.storyboard */,
+				5109039E1C115F6A000C1F01 /* Assets.xcassets */,
+				510903A01C115F6A000C1F01 /* LaunchScreen.storyboard */,
+				510903A31C115F6A000C1F01 /* Info.plist */,
+				51C198FA1C1A9F3000E71B43 /* www */,
 				510903D11C119053000C1F01 /* DNNavigationController.h */,
 				510903D21C119053000C1F01 /* DNNavigationController.m */,
 				510903931C115F6A000C1F01 /* main.m */,
